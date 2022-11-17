@@ -1,0 +1,42 @@
+version: '3.9'
+name: 'mediscreen'
+services:
+  mongo-patients:
+    image: mongo:latest
+    container_name: 'mediscreen-mongo'
+    ports:
+      - 27017:27017
+  mysql:
+    image: mariadb:latest
+    container_name: 'mediscreen-maria'
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+  patient-service:
+    image: openjdk:17-jdk-slim
+    links:
+      - mysql
+    volumes:
+      - '../patient-service/target/patient-service-0.0.1.jar:/home/app.jar'
+    command: [ 'java', '-jar', '/home/app.jar' ]
+    ports:
+      - '8090:8090'
+  patient-note-service:
+    image: openjdk:17-jdk-slim
+    links:
+      - mongo-patients
+    volumes:
+      - '../patient-notes-service/target/patient-notes-service-0.0.1.jar:/home/app.jar'
+    command: [ 'java', '-jar', '/home/app.jar' ]
+    ports:
+      - '8070:8070'
+  diabetes-detection-service:
+    image: openjdk:17-jdk-slim
+    links:
+      - mongo-patients
+    volumes:
+      - '../diabetes-detection-service/target/diabetes-detection-service-0.0.1.jar:/home/app.jar'
+    command: [ 'java', '-jar', '/home/app.jar' ]
+    ports:
+      - '8050:8050'
+
+
