@@ -11,6 +11,8 @@ services:
     container_name: 'mediscreen-maria'
     environment:
       MARIADB_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
   patient-service:
     image: openjdk:17-jdk-slim
     links:
