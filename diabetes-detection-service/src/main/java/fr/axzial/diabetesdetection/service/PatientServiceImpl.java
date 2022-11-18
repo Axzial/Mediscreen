@@ -13,7 +13,7 @@ public class PatientServiceImpl implements PatientService {
     private final WebClient webClient;
 
     public PatientServiceImpl(
-            @Value("${patient.service.url:http://localhost:8090}") String PATIENT_SERVICE_URI
+            @Value("${patient.service.url:http://patient-service:8090}") String PATIENT_SERVICE_URI
     ) {
         webClient = WebClient.builder()
                 .baseUrl(PATIENT_SERVICE_URI)

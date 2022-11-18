@@ -17,7 +17,7 @@ public class PatientNoteServiceImpl implements PatientNoteService {
     private final PatientService patientService;
 
     public PatientNoteServiceImpl(
-            @Value("${patient-note.service.url:http://localhost:8070}") String PATIENT_NOTE_SERVICE_URI,
+            @Value("${patient-note.service.url:http://patient-note-service:8070}") String PATIENT_NOTE_SERVICE_URI,
             PatientService patientService
     ) {
         webClient = WebClient.builder()
